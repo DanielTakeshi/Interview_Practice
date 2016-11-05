@@ -1,0 +1,98 @@
+** Arrays **
+
+Not much to say, in python I think we can treat it as equivalent to [], or I can
+use np.array([]), I hope I can use np there. And don't forget to import it!!!
+
+** Strings **
+
+Not much to say, just do s='text_here'. Note that Python has a string class,
+which I can use for filling, e.g., string.zfill(_,_).
+
+** Dictionaries **
+
+E.g., two letter words representing keys, so 26*26 possible keys. Can make array
+for that, but with all English words, we can't do that. Hash tables are our
+solution, and actually the most common implementation of dictionaries.
+
+** Hash tables **
+
+Easily the most important data structure known to mankind, with O(1) lookup.
+
+Main idea: map to buckets, of much smaller size, each bucket is a linked list,
+since different items can map to the same bucket. Use a good hash function to
+ensure "spread", may depend on application, of course!
+
+To start, however, easiest key is (hash_key) % (array_length), where hash_key is
+determined by a hash function f, so f(input) = some key, and then we 'mod' it to
+make sure the final index is suitable. Then add it to the linked list.  Or use a
+binary tree (but I've never seen this, I think).
+
+n = number of keys we want to store, e.g., words, and we have a table of N
+buckets, where N *slightly* larger than n, but MUCH LESS than all possible keys.
+Hash table maps a huge set of possible keys into N buckets by applying
+_compression_function_. I.e.:
+
+h(hashCode) = hashCode mod N
+
+Use linked lists to handle _collisions_. AH but I forgot, you _do_ have to keep
+track of the key which generated that word, if there are multiple outputs in the
+chains. So keep the original keys encapsulated in your linked list units.
+
+Different methods to implement:
+- insert
+- find
+- remove
+(self-explanatory names)
+Also have interesting cases about if two entries with the same key are inserted.
+Depends on the application!
+
+Important! Don't change hash codes!
+
+Important! _load_factor_ is n/N, n is number of keys (in table, that is), and N
+is number of buckets. If load factor is too large (i.e. much more than one)
+that's bad, should probably resize the table.
+
+Oh, even if load factor is small, if you map all keys to same bucket, that's
+awful, basically O(n). Hash codes (i.e. compression functions) are a black art.
+We _must_ have a given key map to its bucket, always. But give two arbitrary
+keys, no matter how similar/different, the probability they collide is 1/N and
+they map to independently chosen integers.
+
+Best to have N be prime. Say N is 5. Even if our application only generates
+numbers divisible by 4, for instance, we have:
+
+6 ==> 1
+7 ==> 2
+8 ==> 3 [POSSIBLE]
+9 ==> 4
+10 ==> 0
+11 ==> 1
+12 ==> 2 [POSSIBLE]
+13 ==> 3 
+14 ==> 4 
+15 ==> 0
+16 ==> 1 [POSSIBLE]
+etc.
+
+Note how all possible bucket numbers will be useful. If 8, we get 3, if 12 we
+get 2, etc., so all 0-4 will be used.
+
+Remember what we mean by a _hash_code_. Those are the KEYS, the input to the
+hash function (i.e. compression function), which then maps to the bucket index.
+Usually I think a hash code is not the raw words (if we're dealing with 'words')
+but transformed somehow, i.e. like features, and then the hash function
+officially maps it into 0 to (N-1). A _hash_code_, I suppose, can be
+_arbitrary_input_, i.e., if a number, can be any real value. 
+
+OH yeah looking at the next CS 61B lecture, Shewchuk maps a String into an
+integer. Yes, easiest to think of hash codes as integers.
+
+Don't create bad hash codes that create conflicts/collisions even before you can
+make the hash function! As Shewchuk notes, "the best way to understand good hash
+codes is to understand why bad has codes are bad."
+
+Resizing hash tables, yes sometimes it's needed. Try not to resize too often, if
+you do just double the table or so (depends on application!). BUT WE HAVE TO
+REHASH!!! Don't just copy linked lists over. Yes, this makes sense. Think about
+what happens when we have 'mod N' inside the hash function. It has to turn into
+'mod 2N' or something like that.
