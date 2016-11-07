@@ -4,6 +4,7 @@ def joel_spolsky(str_):
     # String starts with upper case letters.
     return str_[0].isupper()
 
+
 def problem_01(str_input):
     # return len(str_input) == len(set(str_input))
     # Alternative:
@@ -50,28 +51,69 @@ def problem_03(s1, s2):
     return True
 
 
-def problem_04():
-    print("Not yet implemented")
+def problem_04(str_input, str_length=None):
+    """ Assumes that str_input is a string.  A bit silly since we ignore
+    str_length but there's some ambiguity with the question, I think. 
+    """
+    str_split = str_input.split()
+    res = ""
+    for ch in str_split[:-1]:
+        res += ch + "%20"
+    res += str_split[-1]
+    return res
 
 
-def problem_05():
-    print("Not yet implemented")
+def problem_05(word):
+    """ This should work, ironically very similar to Gayle's slow code.
+    
+    But I'll try and figure out how to do it using the Python version of string
+    buffers. Lots of work for me to do ...
+    """
+    compressed = ""
+    total = 1
+    prev_ch = word[0]
+
+    for (idx,ch) in enumerate(word[1:]):
+        if ch == prev_ch:
+            total += 1
+        else:
+            compressed += prev_ch + str(total)
+            total = 1
+            prev_ch = ch
+        if len(word)-2 == idx:
+            compressed += ch + str(total)
+
+    if len(compressed) < len(word):
+        return compressed
+    else:
+        return word
 
 
 def problem_06():
-    print("Not yet implemented")
+    pass
 
 
-def problem_07():
-    print("Not yet implemented")
+def problem_07(mat):
+    """ Uses numpy, assumes 'mat' is (m,n) numpy array. """
+    nrows,ncols = mat.shape
+    mat_copy = np.copy(mat)
+
+    for i in range(nrows):
+        for j in range(ncols):
+            if (mat[i,j] == 0):
+                # Use broadcast, then skip this row.
+                mat_copy[i,:] = 0
+                mat_copy[:,j] = 0
+    return mat_copy
 
 
 def problem_08():
-    print("Not yet implemented")
+    pass
 
 
 if __name__ == "__main__":
-    print(problem_03("h", "h"))
-    print(problem_03("no", "on"))
-    print(problem_03("non", "on"))
-    print(problem_03("aaab", "abaa"))
+    a = np.ones((4,4))
+    a[3,1] = 0
+    a[3,0] = 0
+    print(a)
+    print(problem_07(a))
