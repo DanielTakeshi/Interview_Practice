@@ -1,4 +1,4 @@
-import numpy as np
+""" For 2016 ... """
 
 def joel_spolsky(str_):
     # String starts with upper case letters.
@@ -25,7 +25,6 @@ def problem_01_v2(str_input):
             return False
         char_dict[c] = 1
     return True
-
 
 def problem_02(str_):
     """ Not sure if Python has null character... """
