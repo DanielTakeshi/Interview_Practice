@@ -29,7 +29,10 @@ class Stack:
         self.top = t
 
     def peek(self):
-        return self.top._item
+        if self.is_empty():
+            return None
+        else:
+            return self.top._item
 
     def to_string(self):
         result = "[top]"
@@ -38,6 +41,9 @@ class Stack:
             result += " -- " + str(k._item)
             k = k._next
         return result + " -- [bottom]"
+
+    def __str__(self):
+        return self.to_string()
 
     def is_empty(self):
         """ A useful helper/convenience method. """
