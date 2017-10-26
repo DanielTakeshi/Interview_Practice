@@ -1,12 +1,9 @@
-"""
-Test question 01 for trees.
-"""
+""" Test question 01 for trees. """
 
 from trees import BinaryTree
 from trees import BinaryNode
 
 def case01():
-    """ A simple, **perfectly** balanced tree. """
     print("\nA balanced tree (in fact, perfectly balanced):\n")
     n1 = BinaryNode(item="Adam")
     n2 = BinaryNode(item="Barry")
@@ -20,7 +17,6 @@ def case01():
     bt.pretty_print()
 
 def case02():
-    """ A perfectly **unbalanced** tree. """
     print("\nAn unbalanced tree (in fact, perfectly unbalanced):\n")
     n1 = BinaryNode(item="Adam")
     n2 = BinaryNode(item="Barry", lchild=n1)
@@ -34,7 +30,6 @@ def case02():
     bt.pretty_print()
 
 def case03():
-    """ A balanced tree, but not perfectly balanced. """
     print("\nA balanced tree (but not perfectly balanced):\n")
     n0 = BinaryNode(item="Ziang")
     n1 = BinaryNode(item="Adam",rchild=n0)
@@ -49,7 +44,6 @@ def case03():
     bt.pretty_print()
 
 def case04():
-    """ An unbalanced tree, but not perfectly unbalanced. """
     print("\nAn unbalanced tree (but not perfectly unbalanced):\n")
     n00 = BinaryNode(item="Yang")
     n0 = BinaryNode(item="Ziang",lchild=n00)
@@ -65,12 +59,18 @@ def case04():
     bt.pretty_print()
 
 def case05():
-    """ A base case. """
     print("\nA base case:\n")
     n0 = BinaryNode(item="Ziang")
     n1 = BinaryNode(item="Adam")
     n2 = BinaryNode(item="Barry",lchild=n0,rchild=n1)
     bt = BinaryTree(root=n2)
+    print("Balanced = {}.".format(bt.is_balanced()))
+    bt.pretty_print()
+
+def case06():
+    print("\nAn even simpler base case:\n")
+    n0 = BinaryNode(item="Jeff")
+    bt = BinaryTree(root=n0)
     print("Balanced = {}.".format(bt.is_balanced()))
     bt.pretty_print()
 
@@ -80,3 +80,4 @@ if __name__ == "__main__":
     case03()
     case04()
     case05()
+    case06()
