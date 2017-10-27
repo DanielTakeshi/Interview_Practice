@@ -23,28 +23,41 @@ def make_balanced_bst(n, vals):
 ## THE ACTUAL QUESTION ##
 ##########################
 
-def is_bst(bt):
-    assert type(bt) is BinaryTree
-    return is_bst_recursive(n=bt.root)
+## def is_bst(bt):
+##     assert type(bt) is BinaryTree
+##     return is_bst_recursive(n=bt.root)
+## 
+## def is_bst_recursive(n):
+##     """ Returns whether n is a b-SEARCH tree or not. """
+##     # Note: this is incorrect. Gah, a simple error ...
+##     # Also we can still just return a boolean. It's just that we need the min
+##     # and max values as second and third parameters in this recursive call.
+##     if n.lchild is None and n.rchild is None:
+##         return True
+##     if n.lchild is None:
+##         r_isbst = is_bst_recursive(n=n.rchild)
+##         return (n.item <= n.rchild.item and r_isbst)
+##     if n.rchild is None:
+##         l_isbst = is_bst_recursive(n=n.lchild)
+##         return (n.lchild.item <= n.item and l_isbst)
+##     else:
+##         l_isbst = is_bst_recursive(n=n.lchild)
+##         r_isbst = is_bst_recursive(n=n.rchild)
+##         return ((n.lchild.item <= n.item <= n.rchild.item) and \
+##                     l_isbst and r_isbst)
 
-def is_bst_recursive(n):
-    """ Returns whether n is a b-SEARCH tree or not. """
-    # Note: this is incorrect. Gah, a simple error ...
-    # Also we can still just return a boolean. It's just that we need the min
-    # and max values as second and third parameters in this recursive call.
-    if n.lchild is None and n.rchild is None:
+def is_bst(bt):
+    import numpy as np
+    return is_bst_node(bt.root, np.float('-inf'), np.float('inf'))
+
+def is_bst_node(n, min, max):
+    if n is None:
         return True
-    if n.lchild is None:
-        r_isbst = is_bst_recursive(n=n.rchild)
-        return (n.item <= n.rchild.item and r_isbst)
-    if n.rchild is None:
-        l_isbst = is_bst_recursive(n=n.lchild)
-        return (n.lchild.item <= n.item and l_isbst)
-    else:
-        l_isbst = is_bst_recursive(n=n.lchild)
-        r_isbst = is_bst_recursive(n=n.rchild)
-        return ((n.lchild.item <= n.item <= n.rchild.item) and \
-                    l_isbst and r_isbst)
+    if not (min <= n.item <= max):
+        return False 
+    return is_bst_node(n.lchild, min, n.item) and \
+           is_bst_node(n.rchild, n.item, max)
+
 
 if __name__ == "__main__":
     choices = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
