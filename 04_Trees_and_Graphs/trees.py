@@ -9,6 +9,7 @@ class BinaryNode:
         self.rchild = rchild
         self.height = None
         self.balanced = None
+        self.visited = False
 
     def _pretty_print(self, tabstr):
         if self.height != None and self.balanced != None:
