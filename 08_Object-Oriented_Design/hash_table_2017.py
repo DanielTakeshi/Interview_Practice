@@ -9,12 +9,11 @@ class Node:
 
 class HashTable:
     """ 
-    A Hash Table which uses chaining (with linked lists, using 
-    the `Node` class) to handle collisions. For simplicity, we
-    assume that the user wants to insert integer items, so this
-    avoids complications with generating intelligent hash functions
-    that are specific to strings (if the user were hashing strings) and so
-    forth.
+    A Hash Table which uses chaining (with linked lists, using the `Node` class)
+    to handle collisions. For simplicity, we assume that the user wants to
+    insert integer items, so this avoids complications with generating
+    intelligent hash functions that are specific to strings (if the user were
+    hashing strings) and so forth.
     """
     def __init__(self, nbuckets=32):
         self.nbuckets = nbuckets
@@ -45,12 +44,11 @@ class HashTable:
 
     def _compress(self, integer):
         """ 
-        The compression function is technically the _last_ modulo
-        operator. The hash _function_ should be done beforehand
-        to turn the number into something that's ideally uniformly
-        distributed throughout our buckets. Not random, obviously!
-        For now, `integer % 127` is like our hash fxn, though we
-        could obviously just treat it as part of the compression
+        The compression function is technically the _last_ modulo operator. The
+        hash _function_ should be done beforehand to turn the number into
+        something that's ideally uniformly distributed throughout our buckets.
+        Not random, obviously!  For now, `integer % 127` is like our hash fxn,
+        though we could obviously just treat it as part of the compression
         function and let the hash fxn be f(i) = i, the identity.
 
         Update: I added a `_hash_code` function.

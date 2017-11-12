@@ -17,22 +17,42 @@ def question_01(slist):
         current = current._next
 
 
+def question_01_bad(slist):
+    """ Fails on [x] -> [x] input. """
+    current = slist._head
+    if current is None:
+        return
+
+    while current._next is not None:
+        item = current._item
+        runner = current
+        while runner._next is not None:
+            if runner._next._item == item:
+                runner._next = runner._next._next
+            else:
+                runner = runner._next
+        current = current._next
+
+
 def question_01_test():
     """ Question 1 practice. Things look good! """
     print("\n\nQuestion 1 stuff!")
     x = SList()
+    print("our list:\n{}".format(x))
     question_01(x)
     print("after applying q01:\n{}".format(x))
 
     x.insert_front("fish")
+    print("our list:\n{}".format(x))
     question_01(x)
     print("after applying q01:\n{}".format(x))
 
     x.insert_front("fish")
-    print(x)
+    print("our list:\n{}".format(x))
     question_01(x)
     print("after applying q01:\n{}".format(x))
 
+    print("\nnow we're starting a new list ...")
     y = SList()
     y.insert_front("hi")
     y.insert_front("hi")
@@ -405,6 +425,88 @@ def question_07_test():
     print("")
 
 
+def intersect(slist1, slist2):
+    assert slist1 is not None and slist2 is not None \
+            and slist1._head is not None and slist2._head is not None
+
+    def get_tail_size(slist):
+        node = slist._head
+        size = 1
+        while node._next is not None:
+            node = node._next
+            size += 1
+        return (node, size)
+
+    pt1, size1 = get_tail_size(slist1)
+    pt2, size2 = get_tail_size(slist2)
+
+    if pt1 is pt2:
+        offset = size1 - size2
+        # Track node_longer_list and node_shorter_list.
+        node_l = slist1._head if offset >= 0 else slist2._head
+        node_s = slist1._head if offset < 0 else slist2._head
+
+        # If the offset is zero, the lists are the same length.
+        if abs(offset) > 0:
+            offset = abs(offset)
+            while offset > 0:
+                node_l = node_l._next
+                offset -= 1
+
+        while node_l is not node_s:
+            node_l = node_l._next
+            node_s = node_s._next
+        return (True, node_l)
+    else: 
+        return (False, None)
+
+
+def question_07_ctci6_test():
+    x = SList()
+    x.insert_front(10)
+    x.insert_front(7)
+    y = SList()
+    y.insert_front(10)
+    y.insert_front(7)
+    print("\nNon-intersecting case:")
+    print("List 1: {}".format(x))
+    print("List 2: {}".format(y))
+    print(intersect(x,y))
+
+    x = SList()
+    y = SList()
+    node = SListNode("shared")
+    nodex = SListNode("x1", n=node)
+    nodey = SListNode("y1", n=node)
+    x._head = nodex
+    y._head = nodey
+    x._size = 2
+    y._size = 2
+    print("\nNow the intersecting case, same lengths:")
+    print("List 1: {}".format(x))
+    print("List 2: {}".format(y))
+    print(intersect(x,y))
+    a,b = intersect(x,y)
+    print("  with item: {}".format(b._item))
+
+    x = SList()
+    y = SList()
+    node_last = SListNode("last")
+    node = SListNode("shared", n=node_last)
+    nodex2 = SListNode("x2", n=node)
+    nodex1 = SListNode("x1", n=nodex2)
+    nodey = SListNode("y1", n=node)
+    x._head = nodex1
+    y._head = nodey
+    x._size = 4
+    y._size = 3
+    print("\nNow the intersecting case, different lengths:")
+    print("List 1: {}".format(x))
+    print("List 2: {}".format(y))
+    print(intersect(x,y))
+    a,b = intersect(x,y)
+    print("  with item: {}".format(b._item))
+
 
 if __name__ == "__main__":
     # Quetion 1 stuff
@@ -427,3 +529,6 @@ if __name__ == "__main__":
 
     # Question 7 stuff
     question_07_test()
+
+    # New question from CtCi 6th edition
+    question_07_ctci6_test()

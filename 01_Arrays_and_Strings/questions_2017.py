@@ -17,6 +17,26 @@ def all_unique_nods(s):
                 return False
     return True
 
+# Based on doing this again, from the sixth edition of CtCI.
+
+def all_unique_6v1(s):
+    """ 
+    The runtime has to be O(n) here since we need to iterate through all
+    characters in the string, and we have no idea if that last character breaks
+    the unique-ness property of the other characters.
+    """
+    return len(set(s)) == len(s)
+
+def all_unique_6v2(s):
+    """ 
+    Without external data structures.  This is actually O(n^2) I think, as I
+    iterate through each character, and then for each, the count method is O(n).
+    """
+    for char in s:
+        if s.count(char) > 1:
+            return False
+    return True
+
 
 def reverse(str_):
     """ There are two other ways to do this. 
@@ -205,9 +225,23 @@ if __name__ == "__main__":
     print(reverse("abcdef"))
 
     print("\nTesting Problem 01")
-    print(all_unique_nods("hi"))
-    print(all_unique_nods("hii"))
-    print(all_unique_nods("blehasdf"))
-    print(all_unique_nods("blehaasdf"))
-    print(all_unique_nods("ble haasdf"))
-    print(all_unique_nods("blfb"))
+    print(all_unique_nods("hi"))         # True
+    print(all_unique_nods("hii"))        # False
+    print(all_unique_nods("blehasdf"))   # True
+    print(all_unique_nods("blehaasdf"))  # False
+    print(all_unique_nods("ble haasdf")) # False
+    print(all_unique_nods("blfb"))       # False
+    print("")
+    print(all_unique_6v1("hi"))         # True
+    print(all_unique_6v1("hii"))        # False
+    print(all_unique_6v1("blehasdf"))   # True
+    print(all_unique_6v1("blehaasdf"))  # False
+    print(all_unique_6v1("ble haasdf")) # False
+    print(all_unique_6v1("blfb"))       # False
+    print("")
+    print(all_unique_6v2("hi"))         # True
+    print(all_unique_6v2("hii"))        # False
+    print(all_unique_6v2("blehasdf"))   # True
+    print(all_unique_6v2("blehaasdf"))  # False
+    print(all_unique_6v2("ble haasdf")) # False
+    print(all_unique_6v2("blfb"))       # False
