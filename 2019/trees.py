@@ -2,13 +2,12 @@
 # BINARY tree. That is, we can implement these with this class:
 
 class Node:
+
     def __init__(self, item=None, lchild=None, rchild=None):
         self.item = item
         self.lchild = lchild
         self.rchild = rchild
 
-# And here is how to do these traversals, assuming we just print the
-# binary tree, and that the initial `n` is not None.
 
 def in_order(n, spaces=0):
     if n is not None:
@@ -52,6 +51,12 @@ def tree04():
     n2 = Node(2, n4, n5)
     n1 = Node(1, n2, n3)
     return n1
+
+## -------------------------------------------------------------------- ##
+## -------------------------------------------------------------------- ##
+## ------------------------ NOW DOING PROBLEMS ------------------------ ##
+## -------------------------------------------------------------------- ##
+## -------------------------------------------------------------------- ##
 
 ## ------------------------ PROBLEM 01 ------------------------ ##
 

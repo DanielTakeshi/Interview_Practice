@@ -208,7 +208,7 @@ if __name__ == "__main__":
         print(longestPalindrome('ccccc'))
         print(longestPalindrome('cccccc'))
 
-    if True:
+    if False:
         print('\n\nPROBLEM 0011 maxArea\n\n')
         print(maxArea([1,8,6,2,5,4,8,3,7]))
         print(maxArea([1,8,6,2,5,4,8,3,7,1]))
@@ -225,6 +225,6 @@ if __name__ == "__main__":
         print('prefix: {}'.format(longestCommonPrefix([])))
         print('prefix: {}'.format(longestCommonPrefix(['flower', 'flow', 'flowht'])))
 
-    if True:
+    if False:
         print('\n\nPROBLEM 0020 isValid\n\n')
         print(isValid('()'))

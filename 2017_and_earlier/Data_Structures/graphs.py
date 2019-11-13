@@ -1,13 +1,12 @@
 """ Practice implementing from scratch. """
 
-
 from collections import defaultdict
 from queue import Queue
 
 class Node:
 
     def __init__(self, item, parents=None, children=None):
-        self.item = item 
+        self.item = item
         self.parents = parents
         self.children = children
         self.visited = False # For graph traversals
@@ -20,7 +19,7 @@ class Node:
 class Graph:
 
     def __init__(self, nodes, edges):
-        """ 
+        """
         Assumes nodes is a list of hashable items. Assumes edges
         is a list of tuples (of those items).
         """
@@ -53,7 +52,11 @@ class Graph:
 
 
     def dfs(self, item):
-        """ Easiest to do this with a stack. """
+        """ Easiest to do this with a stack.
+
+        UPDATE IN NOVEMBER 2019:  Ah, caught a bug! Do a graph with a cycle. It
+        will visit some nodes more than once. :(
+        """
         start_node = None
         for node in self.nodes:
             node.visited = False
@@ -87,7 +90,7 @@ class Graph:
             node, level = q.get()
             node.visited = True
             print("visiting node: {} at level {}".format(node,level))
-            level += 1   
+            level += 1
             idx = self.nodes_to_idx[node.item]
             for index in self.adj_l[idx]:
                 neighbor = self.nodes[index]
@@ -110,6 +113,7 @@ if __name__ == "__main__":
     nodes = ["alice", "bob", "christine", "daniel", "eiko", "fred"]
     edges = [
         ("alice", "bob"),
+        ("alice", "christine"),
         ("christine", "daniel"),
         ("bob", "daniel"),
         ("daniel", "eiko"),
