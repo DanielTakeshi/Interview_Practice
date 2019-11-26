@@ -8,6 +8,14 @@ or exclusive ways. There are also recursive and iterative solutions.
 
 I'm also adding a special case, to return the index we WOULD be inserting the
 target value in, if we wanted to do that!
+
+Update: the inclusive iterative version seems to be standard, e.g.,:
+
+https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html
+https://en.wikipedia.org/wiki/Binary_search_algorithm
+
+And you can see some interesting stories there! Not sure why this is on the
+Google *AI* Blog ... ?
 """
 
 def binary_search_ex(data, value):

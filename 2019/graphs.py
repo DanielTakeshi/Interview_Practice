@@ -57,19 +57,30 @@ class Graph:
     def dfs(self, start_node):
         """We could have also just made a Stack class.
 
-        Also the list class already has a pop() method that does what I'm
-        doing.  Gayle solution is recursive and she doesn't need the extra `if
-        not n.visited` case that I have to do before calling _visit(). It's a
-        bit tricky, easiest to work it out through a cycle, like a graph with:
+        The list class already has a pop() method that does this:
+
+            n = frontier[-1]
+            frontier = frontier[:-1]
+
+        Gayle solution is recursive, and she doesn't need the extra `if not
+        n.visited` case that I have to do before calling _visit(). It's a bit
+        tricky, easiest to work it out through a cycle, like a graph with:
         (A-B-C-D-A) graph.
 
-        So far, it's passing all my tests...
+        So far, it's passing all my tests... and it matches the Wiki code:
+
+            https://en.wikipedia.org/wiki/Depth-first_search
+
+        where, yes, they delay checking for visitation until we pop fron the
+        frontier. That is critical!! Actually if you note, I don't even need
+        the second `if not nbor.visited` line because that will simply add
+        visited nodes to the frontier, and the first call to check for
+        visitation will catch that (right after the popping).
         """
         self._reset()
         frontier = [start_node]
         while len(frontier) != 0:
-            n = frontier[-1]
-            frontier = frontier[:-1]
+            n = frontier.pop()
             if not n.visited:
                 self._visit(n)
                 for nbor in n.neighbors:
@@ -179,7 +190,7 @@ def graph03_dir():
     return Graph(nodes=nodes)
 
 
-def debug():
+def test_bfs_dfs():
     """Test DFS and BFS."""
     graphs = [graph01(), graph02(), graph03(), graph04(), graph05()]
 
@@ -267,14 +278,14 @@ def route(graph, n1, n2):
 
 
 if __name__ == "__main__":
-    if False:
-        # ----------------- Debug ----------------
-        print('-'*120)
-        print('ON DEBUGGING')
-        print('-'*120)
-        debug()
-
     if True:
+        # ----------------- Debug BFS and DFS ----------------
+        print('-'*120)
+        print('ON DEBUGGING and TESTING BFS/DFS')
+        print('-'*120)
+        test_bfs_dfs()
+
+    if False:
         # ----------------- Problem 01 ----------------
         print('-'*120)
         print('ON PROBLEM 4.01')
