@@ -116,8 +116,12 @@ def is_palind_perm(s):
 ## ------------------------ PROBLEM 06 ------------------------ ##
 ## ------------------------ PROBLEM 07 ------------------------ ##
 ## ------------------------ PROBLEM 08 ------------------------ ##
-## ------------------------ PROBLEM 09 ------------------------ ##
 
+## ------------------------ PROBLEM 09 ------------------------ ##
+def string_rotation(str1, str2):
+    if len(str1) != len(str2):
+        return False
+    return str2 in (str1 + str1)
 
 
 if __name__ == "__main__":
@@ -149,3 +153,21 @@ if __name__ == "__main__":
                 'tactcoapapaa', 'aaaab', 'aaaabb', 'aaaabc']
     for s in strings:
         print('is_palind_perm: {}  for:  {}'.format(is_palind_perm(s), s))
+
+
+
+
+    # ----------------- Problem 09 ----------------
+    print('')
+    print('-'*120)
+    print('PROBLEM 9, SECOND VERSION\n')
+    strings = [
+        ('h',''),
+        ('h','h'),
+        ('hi','ih'),
+        ('hithere','therehi'),
+        ('hithere','thereih'),
+        ('waterbottle','erbottlewat'),
+    ]
+    for (s1,s2) in strings:
+        print('string_rotation: {}  for:  {},{}'.format(string_rotation(s1,s2), s1,s2))
